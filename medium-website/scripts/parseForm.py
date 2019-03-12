@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/Users/jan-philippthiele/anaconda3/bin/python
 
 # A simple script to accept input from an html form,
 # parse the information, and do something - which in this case
@@ -6,13 +6,14 @@
 
 # use python's the CGI package
 import cgi
+import sys
 
 # get the output of the form.
 form = cgi.FieldStorage()
 
 # get an input filed from the form called 'name'
 # and assign it's value to a local variable called v_name
-v_name = form.getvalue('name')
+v_name = form.getvalue('first_name')
 
 # send an html response.
 print("""
