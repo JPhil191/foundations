@@ -23,7 +23,7 @@ with open("colors.csv") as _filehandler:
 		is a valid color! The hex code is: %s 
 		</p>
 		</body>
-		</html>
+		</html> 
 		""" %(color, row["hex"]))
 	else:
 		print("""
