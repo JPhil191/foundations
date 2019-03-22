@@ -19,7 +19,7 @@ def simple_get(url):
     	with closing(get(url, stream=True)) as resp:
     		#calling the is_good_response function to know whether we have an html file
     		#if is_good_response(resp):
-    			return resp.content
+    		return resp.content
     		#if something goes wrong like we are having a bad url we return None
     		#else:
     		#	return None
