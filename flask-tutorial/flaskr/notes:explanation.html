@@ -1,0 +1,48 @@
+
+<!-- 
+Jinja looks and behaves mostly like Python. Special delimiters are used to distinguish Jinja syntax from the static data in the template.
+Anything between {{ and }} is an expression that will be output to the final document. {% and %} denotes a control flow statement like if and for.
+Unlike Python, blocks are denoted by start and end tags rather than indentation since static text within a block could change indentation.
+-->
+
+<!-- {% extends 'base.html' %} tells Jinja that this template should replace the blocks from the base template. All the rendered content
+	must appear inside '{% block %}'' tags that override blocks from the base template.
+
+	A useful pattern used here is to place {% block title %} inside {% block header %}. This will set the title block and then output the value
+	of it into the header block, so that both the winow and page share the same title without writing it twice.
+
+	The input tags are using the required attribute here. If the user us using an older browser that does not support that attribute, or if they are using
+	something besides a browser to make requests, you still wnt to validate the data in the Flask view. It is important to always fully validate the data.
+	on the server, even if the client does some valiation as well.
+-->
+
+<!-- g is autmatically available in templates. Based on if g.user is set (from load_logged_in_user), either the user-name and a log out link
+  are diplayed, otherwise links to register and lig in are displayed. url_for() is also automatically available, and is used to generate
+  URLs to views instead of writing them out manually.
+
+  After the page title, and before the content, the template loops over each messsage returned by get_flashed_messages(). You used flash() in the
+  views to show error messages, and this is the code that will display them.
+
+  There are three blocks defined here that will be overriden in the other templates:
+
+  1. {% block title %} will change the title displayed in the browser's tab and window title
+  2. {% block header %} is similar to title but will change the title displayed on the page
+  3. {% block content %} is where the content of the page goes, such as log in form or a block post.
+
+  The base template is directly in the template directory. To keep the others organized, the templates for a bluepint will be placed in a director 
+  with the same name as the blueprint. -->
+
+<!--Besides CSS other types of static files might be with JavaScript functions or a logo image. Tey are all placed under the flasr/static directory and referenced with url_for('static', filename='...')-->
+
+<!-- About the index.html: When the user is ligged in, the header block adds a link to the create view. When the user is the author of a post, they'll see an "Edit" link to the update view
+  for that post. loop.last is a special vairable available inside Jinja for loops. It's used to display a line after each post except the last one, to visually sperate them-->
+
+<!-- The create View: It is similar to the auth register view. Either the form is displayed or the posted data is validated and the post is added to the database or an error is shown.
+
+  The login_requiered decorator we wrote earlier is used on the blog views. A user must be logged in to visit these views, otherwise they will be redirected to the login page.-->
+
+<!--Update page: Both the update and delete views will need to fetch a post by id and check if the author matches the logged in user. To avoid duplicating code, you can write a function to get the post and call
+  it from each view.
+  This template has two forms. The first pots the edited data to the current page (/<id>/udate). The other form contains only a button and specifies an action attribute that posts the delete view instead. The button uses some JavaScript to show confirmation dialog before submitting.
+
+  The pattern {{ request.form['title']}} or post['title'] is used ti choose what data appears in the form. When the form has not been submitted, the orinal pist data appears, but if invalif form data was posted you want to display that si the user can fix the error, so request.form is used instead. request is another variable that is automatically available in templates.
