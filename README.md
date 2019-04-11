@@ -1,4 +1,4 @@
-# foundations
+# THE JP TIMES
 
 The foundations project
 
