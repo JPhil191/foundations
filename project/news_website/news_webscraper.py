@@ -86,7 +86,12 @@ def process_zeit_article_link(link):
 				print('found multi page')
 				html = BeautifulSoup(resp.content, 'html.parser')
 				link = (link + "/komplettansicht")
-				content = get_paragraphs(html)
+				paragraphs = get_paragraphs(html)
+				if len(paragraphs)>1:
+					teaser = paragraphs[0]
+				else:
+					teaser = "Readcarticle."
+				full_article = "<br>".join(paragraphs)
 				headline = get_article_headline(html)
 				img_link = get_img_link(html)
 				#resp.coontent means that we are getting the response in bites with the cintent of the page
@@ -97,7 +102,12 @@ def process_zeit_article_link(link):
 				with closing(get(link, stream=True)) as resp:
 					html = BeautifulSoup(resp.content, 'html.parser')
 					link = (link)
-					content = get_paragraphs(html)
+					paragraphs = get_paragraphs(html)
+					if len(paragraphs)>1:
+						teaser = paragraphs[0]
+					else:
+						teaser = "Readcarticle."
+					full_article = "<br>".join(paragraphs)
 					headline = get_article_headline(html)
 					img_link = get_img_link(html)
 
@@ -105,8 +115,8 @@ def process_zeit_article_link(link):
 		print(link)
 		log_error("Error during requests to {0} : {1}".format(link, str(e)))
 
-	if len(content) > 1200:
-		write_to_database(link, headline, content, img_link)
+	if len(full_article) > 1200:
+		write_to_database(link, headline, full_article, img_link, teaser)
 
 def get_paragraphs(html):
 	
@@ -126,8 +136,8 @@ def get_paragraphs(html):
 		else:
 			continue		
 
-	content	= "<br>".join(paragraphs)	
-	return content
+		
+	return paragraphs
 
 	
 
@@ -183,18 +193,33 @@ def make_nyt_ready_for_database(link_list):
 		response = get_html(link)
 		html = BeautifulSoup(response, "html.parser")
 		
-		content = get_paragraphs(html)
+		paragraphs = get_paragraphs(html)
+		if len(paragraphs)>1:
+			teaser = paragraphs[0]
+		else:
+			teaser = "Readcarticle."
+		full_article = "\n<br>\n<br>".join(paragraphs)
 		headline = get_article_headline(html)
 		img_link = get_img_link(html)
-		if len(content) > 1200:
-			write_to_database(link, headline, content, img_link)
+
+		if len(full_article) > 1200:
+			
+			if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
+				write_to_database(link, headline, full_article, img_link, teaser)
 
 	
 
-def write_to_database(link, headline, content, img_link):
+def write_to_database(link, headline, content, img_link, teaser):
+	
+	if img_link == None and 'Brexit' in content:
+			img_link = 'https://images.unsplash.com/photo-1483972117325-ce4920ff780b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
 
-#TODO: Check if article is already in database!	
+	if img_link == None and 'Trump' in content:
+		img_link = 'https://images.unsplash.com/photo-1550531996-ff3dcede9477?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80'
 
+	elif img_link == None and '/politics/' or img_link == None and '/politik/' in link:
+		img_link = 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'
+	
 	Topic_ID = 1
 
 	if 'nytimes.com' in link:
@@ -206,12 +231,12 @@ def write_to_database(link, headline, content, img_link):
 			Topic_ID = 3
 		else:
 			Topic_ID = 4
-		
+			
 
-		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK) VALUES (?, 2, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link))
+		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 2, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
 		print("nyt written to database")
 	elif 'zeit.de' in link:
-		
+			
 		if '/politik/' in link:
 			Topic_ID = 1
 		elif '/gesellschaft/' in link:
@@ -222,16 +247,14 @@ def write_to_database(link, headline, content, img_link):
 			Topic_ID = 3
 		else:
 			Topic_ID = 4
-		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK) VALUES (?, 1, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link))
+		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 1, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
 		print("zeit article written to database")
+
 
 
 def printing():
 	db_cursor.execute("SELECT * from Links")
 	list_links = db_cursor.fetchall()
-	print(list_links)
-	print(len(list_links))
-	db_cursor.close()
 	db_connection.commit()
 
 
@@ -239,7 +262,8 @@ zeit_article_dict = {}
 
 nyt_article_dict = {}
 
-db_connection = sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite')
+#db_connection = sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite')
+db_connection = sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite')
 db_cursor = db_connection.cursor()
 
 

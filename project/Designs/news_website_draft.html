@@ -113,10 +113,14 @@ main {
 	margin-right: auto;
 	margin-top: 50px;
 	align-items: center;
+	margin-bottom: 50px;
+	position: static;
 }
 
 #main-img {
+	position: absolute;
 	max-width: 100%;
+	bottom: 0;
 }
 
 #main-article {
@@ -125,15 +129,28 @@ main {
 	overflow-y: scroll;
 	margin-left: 20px;
 	padding-right: 20px;
+
 }
 
+
 #main-img-container {
-	width: 45vw;
 	margin-right: 20px;
-	position: relative;
+	width: 43vw;
 	height: 30vw;
-	background-size: contain;
-	background-image: url(/Users/jan-philippthiele/Downloads/merlin_148940892_4791aa73-2575-4ad3-af7b-aed2e92c5ad3-superJumbo.jpg);
+	position: relative;
+	
+}
+
+#gradient {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+80&0+47,0+47,0.8+81 */
+	background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 47%, rgba(0,0,0,0.78) 80%, rgba(0,0,0,0.8) 81%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 47%,rgba(0,0,0,0.78) 80%,rgba(0,0,0,0.8) 81%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 47%,rgba(0,0,0,0.78) 80%,rgba(0,0,0,0.8) 81%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 ); /* IE6-9 */
 }
 
 .breaker {
@@ -150,13 +167,13 @@ main {
 
 .scroll-bar::-webkit-scrollbar
 {
-	width: 5px;
+	width: 4px;
 	background-color: #0000;
 }
 
 .scroll-bar::-webkit-scrollbar-thumb
 {
-	border-radius: 10px;
+	border-radius: 100px;
 	background-color: #555;
 }
 
@@ -171,12 +188,223 @@ main {
 }
 
 h2 {
-	
-	float: bottom;
+	font-size: 2vw;
+	font-family: Times;
+	font-weight: lighter;
 	color: white;
+	width: 100%;
+	
 }
 
+#main-headline {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
 
+.article-image {
+	margin-right: 20px;
+	height: 17vw;
+}
+
+article {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-between;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+	width: 70%;
+}
+
+.article-description {
+	margin-left: 20px;
+}
+
+.article-headline {
+	margin-bottom: 30px;
+	font-size: 2vw;
+	font-family: Times;
+	font-weight: lighter;
+}
+
+.article-teaser{
+	margin-top: 30px;
+	font-family: Times;
+	font-weight: lighter;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.article-charateristics {
+	display: flex;
+	margin-top: 20px;
+}
+
+.article-date {
+	margin-left: 20px;
+}
+
+.article-source {
+	margin-right: 20px;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.left-article {
+	flex-direction: row-reverse;
+}
+
+.article-description-left {
+	margin-right: 20px;
+}
+
+.article-image-left {
+	margin-right: 0px;
+	margin-left: 20px;
+}
+
+	@media (max-width: 1300px) {
+
+
+		main {
+			width: 85%;
+		}
+
+		article {
+			width: 85%;
+		}
+
+		.article-image {
+			height: 17vw;
+		}
+
+		#main-article {
+			width: 40%;
+		}
+
+}
+
+@media (max-width: 1100px) {
+
+		.article-headline {
+			font-size: 22px;
+		}
+
+		.article-teaser {
+			font-size: 14px;
+		}
+
+		.article-charateristics {
+			font-size: 14px;
+		}
+
+		.main-article{
+			width: 40%;
+		}
+
+		main {
+			width: 85%;
+		}
+
+		article {
+			width: 85%;
+		}
+
+		.article-image {
+			height: 17vw;
+		}
+}
+
+@media (max-width: 900px) {
+
+	.article-headline {
+		font-size: 18px;
+	}
+
+	.article-teaser {
+		font-size: 12px;
+	}
+
+	.article-charateristics {
+		font-size: 12px;
+	}
+
+	article {
+		align-items: flex-start;
+	}
+
+}
+
+@media (max-width: 700px) {
+	article {
+		flex-direction: column;
+		align-items: center;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 95%;
+	}
+
+	.article-image {
+		height: 60vw;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.left-article {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+	}
+
+	.article-headline {
+		margin-top: 20px;
+		font-size: 22px;
+	}
+
+	.article-teaser {
+		font-size: 14px;
+		margin-top: 15px;
+	}
+
+	#main-article {
+		display: none;
+	}
+
+	main {
+		position: static;
+		flex-direction: column;
+		align-items: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: 95%;
+		height: 60vw;
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+
+	#main-img-container {
+		position: relative;
+		width: 95%;
+		margin: 0;
+		height: 60vw;
+	}
+
+	#gradient {
+		height: 100%;
+	}
+
+	h2 {
+		font-size: 5vw;
+	}
+
+
+
+}
 
 </style>
 
@@ -204,7 +432,18 @@ h2 {
 
 <body>
 	<main>
-		<div id="main-img-container"><h2>jfviwnv</h2></div>
+		<div id="main-img-container">
+			
+			<img id="main-img" src="/Users/jan-philippthiele/Downloads/merlin_148940892_4791aa73-2575-4ad3-af7b-aed2e92c5ad3-superJumbo.jpg"><div id="gradient"></div>
+			<div id="main-headline">
+				<h2>Jeff Bezos, Amazon C.E.O., and MacKenzie Bezos Finalize Divorce Details</h2>
+				
+			</div>
+				
+				
+		</div>
+			
+		
 		<div class="scroll-bar" id="main-article"><p><font size="15" face="EnglishTowne">J</font> eff Bezos, Amazon’s founder and chief executive, and his wife, MacKenzie Bezos, said on Twitter on Thursday that they had finalized the details of their divorce.<br><br>
 
 Mr. Bezos will keep 75 percent of the couple’s Amazon stock and all of their ownership of The Washington Post and the Blue Origin space company, Ms. Bezos wrote. Mr. Bezos will also have “sole voting authority” over Ms. Bezos’ Amazon shares, according to a filing with the Securities and Exchange Commission.
@@ -221,10 +460,39 @@ Ms. Bezos wrote on Twitter on Thursday that she was “excited about my own plan
 Amazon declined to comment.</p></div>
 	</main>
 
-<hr class="breaker">
+<hr>
 
 </body>
 
+	<article>
+		<img class="article-image" src="/Users/jan-philippthiele/FoundationsFolder/foundations/project/Designs/imgs/04dc-chinatrade-superJumbo.jpg">
+		<div class="article-description">
+			<h3 class="article-headline">Trump Says ‘Epic’ China Trade Deal Is Near Completion, but Hang-Ups Remain</h3>
+			<p class="article-teaser">President Trump stopped short of announcing a final trade deal with China on Thursday, saying in an Oval Office meeting with the Chinese delegation that it may take another four weeks or more to secure an “epic” trade agreement.</p>
+			<div class="article-charateristics">
+				<a class="article-source" href="www.nytimes.com">nytimes.com</a>
+				<p class="article-date">23.02.19</p>
+			</div>
+		</div>
+
+	</article>
+
+<hr>
+
+<a href="https://www.nytimes.com"><article class="left-article">
+		<img class="article-image article-image-left" src="/Users/jan-philippthiele/FoundationsFolder/foundations/project/Designs/imgs/merlin_153065076_f9b8588d-fbd4-4eb3-96b3-550e86523da8-superJumbo.jpg">
+		<div class="article-description article-description-left">
+			<h3 class="article-headline">Tesla’s Elon Musk and S.E.C. Have 2 Weeks to Resolve Dispute, Judge Says</h3>
+			<p class="article-teaser">A federal judge gave Elon Musk and the Securities and Exchange Commission two weeks to resolve a dispute about whether Mr. Musk had violated a settlement he reached with the commission in October and should be held in contempt of court.</p>
+			<div class="article-charateristics article-charateristics-left">
+				<a class="article-source" href="www.nytimes.com">nytimes.com</a>
+				<p class="article-date">23.02.19</p>
+			</div>
+		</div>
+
+	</article></a>
+
+<hr>
 
 <div id="test"></div>
 
