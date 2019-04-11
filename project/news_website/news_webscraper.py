@@ -203,10 +203,9 @@ def make_nyt_ready_for_database(link_list):
 		img_link = get_img_link(html)
 
 		if len(full_article) > 1200:
-			db_cursor2 = db_connection.cursor()
-			if db_cursor2.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
+			#if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
 				
-				write_to_database(link, headline, full_article, img_link, teaser)
+			write_to_database(link, headline, full_article, img_link, teaser)
 
 	
 
