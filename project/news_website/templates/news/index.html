@@ -359,7 +359,7 @@ article {
   .article-image-container {
     object-fit: cover;
     width: 60vw;
-    height: 30vw;
+
   }
 
   .article-image {
@@ -459,7 +459,8 @@ article {
   {% for new in news %}
     
         <article class="post">
-          <a href="{{ new['LINK'] }}"> <div class="article-image-container"><img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}"></div>
+           <div class="article-image-container"><img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}"></div>
+        <a href="{{ new['LINK'] }}">
         <div class="article-description">
         <h3 class="article-headline">{{ new['HEADLINE'] }}</h3>
         <p class="article-teaser">{{ new['TEASER'] }}</p>
