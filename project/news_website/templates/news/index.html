@@ -356,8 +356,13 @@ article {
     width: 95%;
   }
 
+  .article-image-container {
+    object-fit: cover;
+    width: 90%;
+  }
+
   .article-image {
-    height: 60vw;
+    height: 100%;
     margin-left: 0;
     margin-right: 0;
   }
@@ -453,7 +458,7 @@ article {
   {% for new in news %}
     
         <article class="post">
-          <a href="{{ new['LINK'] }}"><img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}">
+          <a href="{{ new['LINK'] }}"> <div class="article-image-container"><img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}"></div>
         <div class="article-description">
         <h3 class="article-headline">{{ new['HEADLINE'] }}</h3>
         <p class="article-teaser">{{ new['TEASER'] }}</p>
