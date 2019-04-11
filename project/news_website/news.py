@@ -16,12 +16,13 @@ bp = Blueprint('news', __name__)
 @bp.route('/')
 def index():
 	
-	db_connection = get_db()
-	db_cursor = db_connection.cursor()
+	
 	
 	news_webscraper.get_nyt_articles()
 	news_webscraper.get_zeit_article_links()
-	news_webscraper.printing()
+
+	db_connection = get_db()
+	db_cursor = db_connection.cursor()
 
 	main_article = db_cursor.execute("""SELECT * FROM Links LIMIT 1""").fetchall()
 	news = db_cursor.execute("""SELECT LINK, Source_ID, HEADLINE, TEASER, IMG_LINK FROM Links LIMIT 1, 5000""").fetchall()

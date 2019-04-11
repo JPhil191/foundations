@@ -211,51 +211,52 @@ def make_nyt_ready_for_database(link_list):
 
 def write_to_database(link, headline, content, img_link, teaser):
 	
-	if img_link == None and 'Brexit' in content:
-			img_link = 'https://images.unsplash.com/photo-1483972117325-ce4920ff780b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
 
-	if img_link == None and 'Trump' in content:
-		img_link = 'https://images.unsplash.com/photo-1550531996-ff3dcede9477?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80'
-
-	elif img_link == None and '/politics/' or img_link == None and '/politik/' in link:
-		img_link = 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'
-	
-	Topic_ID = 1
-
-	if 'nytimes.com' in link:
-		if '/politics/' in link:
-			Topic_ID = 1
-		elif '/technology/' in link:
-			Topic_ID = 2
-		elif '/business/' in link:
-			Topic_ID = 3
-		else:
-			Topic_ID = 4
-			
-
-		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 2, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
-		print("nyt written to database")
-	elif 'zeit.de' in link:
-			
-		if '/politik/' in link:
-			Topic_ID = 1
-		elif '/gesellschaft/' in link:
-			Topic_ID = 4
-		elif '/sport/' in link:
-			Topic_ID = 5
-		elif '/wirtschaft/' in link:
-			Topic_ID = 3
-		else:
-			Topic_ID = 4
-		db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 1, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
-		print("zeit article written to database")
+	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+		db_cursor = db_connection.cursor()
 
 
+		if img_link == None and 'Brexit' in content:
+				img_link = 'https://images.unsplash.com/photo-1483972117325-ce4920ff780b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
 
-def printing():
-	db_cursor.execute("SELECT * from Links")
-	list_links = db_cursor.fetchall()
-	db_connection.commit()
+		if img_link == None and 'Trump' in content:
+			img_link = 'https://images.unsplash.com/photo-1550531996-ff3dcede9477?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80'
+
+		elif img_link == None and '/politics/' or img_link == None and '/politik/' in link:
+			img_link = 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'
+		
+		Topic_ID = 1
+
+		if 'nytimes.com' in link:
+			if '/politics/' in link:
+				Topic_ID = 1
+			elif '/technology/' in link:
+				Topic_ID = 2
+			elif '/business/' in link:
+				Topic_ID = 3
+			else:
+				Topic_ID = 4
+				
+
+			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 2, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
+			print("nyt written to database")
+		elif 'zeit.de' in link:
+				
+			if '/politik/' in link:
+				Topic_ID = 1
+			elif '/gesellschaft/' in link:
+				Topic_ID = 4
+			elif '/sport/' in link:
+				Topic_ID = 5
+			elif '/wirtschaft/' in link:
+				Topic_ID = 3
+			else:
+				Topic_ID = 4
+			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 1, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
+			print("zeit article written to database")
+		db_connection.commit()
+
+
 
 
 zeit_article_dict = {}
@@ -263,8 +264,8 @@ zeit_article_dict = {}
 nyt_article_dict = {}
 
 #db_connection = sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite')
-db_connection = sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite')
-db_cursor = db_connection.cursor()
+
+#db_cursor = db_connection.cursor()
 
 
 #get_nyt_articles()
