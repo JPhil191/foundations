@@ -459,7 +459,7 @@ article {
   {% for new in news %}
     
         <article class="post">
-          <img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}"><a href="{{ new['LINK'] }}">
+          <img class="article-image" alt="{{ new['HEADLINE'] }}" src="{{ new['IMG_LINK'] }}"><a target="_blank" href="{{ new['LINK'] }}">
         <div class="article-description">
         <h3 class="article-headline">{{ new['HEADLINE'] }}</h3>
         <p class="article-teaser">{{ new['TEASER'] }}</p>
