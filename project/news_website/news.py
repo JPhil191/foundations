@@ -18,8 +18,8 @@ def index():
 	
 	
 	
-	#news_webscraper.get_nyt_articles()
-	#news_webscraper.get_zeit_article_links()
+	news_webscraper.get_nyt_articles()
+	news_webscraper.get_zeit_article_links()
 
 	db_connection = get_db()
 	db_cursor = db_connection.cursor()
