@@ -1,18 +1,9 @@
 # foundations
 
-the foundations project
+The foundations project
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+###Description
+Included is a webscraper, scraping and saving articles from the New York Times and zeit.de. The articles are saved in an sqlite database. The articles are then being presented on the website.
 
 ### Installing
 
@@ -27,18 +18,18 @@ You will need to install the following
 
 Start by creating the virtual environment:
 ```
-/IRT/
+/foundations/
 python3 -m venv venv
 Activate the virtual environment
 ```
 ```
-/IRT/
+/foundations/
 source venv/bin/activate
 Install waitress (Use pip not pip3)
 ```
 ```
-/IRT/
-pip install waitress
+/foundations/
+pip install waitress requests BeautifulSoup4 flask
 ```
 
 ## Starting locally
