@@ -1,7 +1,8 @@
 import sqlite3
 
-db_connection = sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite')
-db_cursor = db_connection.cursor()
-db_cursor.execute("DELETE FROM Links;")
+#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	db_cursor = db_connection.cursor()
+	db_cursor.execute("DELETE FROM Links;")
 
-db_connection.commit()
+	db_connection.commit()

@@ -4,6 +4,7 @@ from contextlib import closing
 from bs4 import BeautifulSoup
 import operator
 import sqlite3
+import json
 
 
 
@@ -91,7 +92,7 @@ def process_zeit_article_link(link):
 					teaser = paragraphs[0]
 				else:
 					teaser = "Readcarticle."
-				full_article = "<br>".join(paragraphs)
+				full_article = "\n\n".join(paragraphs)
 				headline = get_article_headline(html)
 				img_link = get_img_link(html)
 				#resp.coontent means that we are getting the response in bites with the cintent of the page
@@ -107,7 +108,7 @@ def process_zeit_article_link(link):
 						teaser = paragraphs[0]
 					else:
 						teaser = "Readcarticle."
-					full_article = "<br>".join(paragraphs)
+					full_article = "\n\n".join(paragraphs)
 					headline = get_article_headline(html)
 					img_link = get_img_link(html)
 
@@ -116,7 +117,11 @@ def process_zeit_article_link(link):
 		log_error("Error during requests to {0} : {1}".format(link, str(e)))
 
 	if len(full_article) > 1200:
-		write_to_database(link, headline, full_article, img_link, teaser)
+		with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+				db_cursor = db_connection.cursor()
+				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
+					write_to_database(link, headline, full_article, img_link, teaser)
 
 def get_paragraphs(html):
 	
@@ -198,33 +203,82 @@ def make_nyt_ready_for_database(link_list):
 			teaser = paragraphs[0]
 		else:
 			teaser = "Readcarticle."
-		full_article = "\n<br>\n<br>".join(paragraphs)
+		full_article = "\n\n".join(paragraphs)
 		headline = get_article_headline(html)
 		img_link = get_img_link(html)
 
 		if len(full_article) > 1200:
-			#if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
-				
-			write_to_database(link, headline, full_article, img_link, teaser)
+			with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+				db_cursor = db_connection.cursor()
+				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
+					
+					write_to_database(link, headline, full_article, img_link, teaser)
+
+
+def decode_json(tup):
+	
+	try:                                                                           
+		tup_json = json.loads(tup)                                                 
+		return tup_json                                                            
+	except ValueError: # includes JSONDecodeError                          
+		logger.error(error)                                                           
+		return None
+
+
+def translate_tags(tags):
+
+	API_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=de&tl=en&dt=t&q={}"
+
+	translated_tags = []
+
+	for tag in tags:
+
+		API_query = API_URL.format(tag) 
+
+		with closing(get(API_query, stream=True)) as resp:
+
+			decoded_response = decode_json(resp.content)
+
+			translated_tags.append(decoded_response)
 
 	
+	return (translated_tags)
+
+
+
+
+def search_forunsplash_image():
+
+	query = 'Chicago'
+
+	API_Link = 'https://api.unsplash.com/search/photos?page=1&query={}&per_page=1&orientation=landscape&client_id={}'
+
+	API_Key = '70d7ba9bb2607317ee3d673670a1de33d1d976d4c99d576d346d88775943f54e'
+
+	API_query = API_Link.format(query, API_Key)
+
+	with closing(get(API_query, stream=True)) as resp:
+
+		decoded_response = decode_json(resp.content)
+
+		img_link = decoded_response['results'][0]['urls']['full']
+
+		return img_link
+
 
 def write_to_database(link, headline, content, img_link, teaser):
 	
-
-	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+	with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 		db_cursor = db_connection.cursor()
 
 
-		if img_link == None and 'Brexit' in content:
-				img_link = 'https://images.unsplash.com/photo-1483972117325-ce4920ff780b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
+		if img_link == None:
+			img_link = search_for_unsplash_image() 
 
-		if img_link == None and 'Trump' in content:
-			img_link = 'https://images.unsplash.com/photo-1550531996-ff3dcede9477?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80'
 
-		elif img_link == None and '/politics/' or img_link == None and '/politik/' in link:
-			img_link = 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'
-		
+
 		Topic_ID = 1
 
 		if 'nytimes.com' in link:
@@ -238,7 +292,7 @@ def write_to_database(link, headline, content, img_link, teaser):
 				Topic_ID = 4
 				
 
-			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 2, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
+			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER, DateandTime) VALUES (?, 2, ?, ?, ?, ?, ?, strftime('%d.%m.%Y %H:%M', 'now'));", (link, Topic_ID, headline, content, img_link, teaser))
 			print("nyt written to database")
 		elif 'zeit.de' in link:
 				
@@ -250,18 +304,17 @@ def write_to_database(link, headline, content, img_link, teaser):
 				Topic_ID = 5
 			elif '/wirtschaft/' in link:
 				Topic_ID = 3
+			elif '/wissen/' in link:
+				Topic_ID = 2
 			else:
 				Topic_ID = 4
-			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER) VALUES (?, 1, ?, ?, ?, ?, ?);", (link, Topic_ID, headline, content, img_link, teaser))
+			db_cursor.execute("INSERT INTO Links (LINK, Source_ID, Topic_ID, HEADLINE, CONTENT, IMG_LINK, TEASER, DateandTime) VALUES (?, 1, ?, ?, ?, ?, ?, strftime('%d.%m.%Y %H:%M', 'now'));", (link, Topic_ID, headline, content, img_link, teaser))
 			print("zeit article written to database")
 		db_connection.commit()
 
 
 
 
-zeit_article_dict = {}
-
-nyt_article_dict = {}
 
 #db_connection = sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite')
 
