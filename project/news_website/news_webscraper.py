@@ -112,13 +112,15 @@ def process_zeit_article_link(link):
 					headline = get_article_headline(html)
 					img_link = get_img_link(html)
 
+					#tags = translate_tags(need to get tags)
+
 	except RequestException as e:
 		print(link)
 		log_error("Error during requests to {0} : {1}".format(link, str(e)))
 
 	if len(full_article) > 1200:
-		with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+		#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+		with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 				db_cursor = db_connection.cursor()
 				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
 					write_to_database(link, headline, full_article, img_link, teaser)
@@ -208,8 +210,8 @@ def make_nyt_ready_for_database(link_list):
 		img_link = get_img_link(html)
 
 		if len(full_article) > 1200:
-			with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+			#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+			with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 				db_cursor = db_connection.cursor()
 				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
 					
@@ -269,13 +271,14 @@ def search_forunsplash_image():
 
 def write_to_database(link, headline, content, img_link, teaser):
 	
-	with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-	#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+	#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 		db_cursor = db_connection.cursor()
 
 
 		if img_link == None:
-			img_link = search_for_unsplash_image() 
+			img_link = search_for_unsplash_image(#pass in translated tags
+				)
 
 
 
