@@ -121,9 +121,9 @@ def process_zeit_article_link(link):
 	if len(full_article) > 1200:
 		#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
 		with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
-				db_cursor = db_connection.cursor()
-				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
-					write_to_database(link, headline, full_article, img_link, teaser)
+			db_cursor = db_connection.cursor()
+			if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
+				write_to_database(link, headline, full_article, img_link, teaser)
 
 def get_paragraphs(html):
 	
