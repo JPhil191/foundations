@@ -22,16 +22,15 @@ def create_app(test_config = None):
 
     # ensure the instance folder exists
     try:
-        os.makedirs(app.instance_path)
+        os.makedirs(app.instance_path)app = create_app()
     except OSError:
         pass
+
+    app.add_url_rule('/', endpoint='index')
 
 
     from . import news
     app.register_blueprint(news.bp)
-    app.add_url_rule('/', endpoint='index')
-
 
     return app
 
-app = create_app()

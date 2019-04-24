@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Playfair Display" rel="stylesheet">
+
+
+<style type="text/css">
+	
+	* {
+		padding: 0px;
+		margin: 0px;
+	}
+
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 800px;
+		width: 90%;
+		left: 50%;
+		transform: translate(-50%);
+		position: absolute;
+	}
+
+	h1{
+		font-family: Playfair Display; 
+		font-size: 36px;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+		margin-bottom: 50px;
+	}
+
+	.paper {
+		width: 90%;
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: 0px 5px 25px rgba(0,0,0, 0.27);
+		margin-top: 80px;
+		padding: 25px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 100px;
+		padding-bottom: 200px;
+		animation-name: appearing;
+		animation-duration: 750ms;
+		animation-timing-function: ease-out;
+		animation-fill-mode: forwards;
+	} @keyframes appearing {
+		0% {
+			margin-top: 110vh;
+		}
+		100% {
+			margin-top: 80px;
+		}
+	}
+
+	.article-img {
+	width: 90%;
+}
+
+p {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 60px;
+	font-family: Playfair Display; 
+	line-height: 155%;
+}
+
+
+</style>
+
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="paper">
+		
+		<button></button>
+		{% block content %}
+  {% for article in article %}
+		<h1>{{ article['HEADLINE'] }}</h1>
+			<img class="article-img" src="{{ article['IMG_LINK'] }}">
+		<p>{% for line in article['CONTENT'].splitlines() %}
+    					{{line}}<br>
+    				{% endfor %}</p>
+
+
+  {% endfor %}
+{% endblock %}
+
+
+
+<button></button>
+
+
+
+
+
+	</div>
+
+</body>
+</html>

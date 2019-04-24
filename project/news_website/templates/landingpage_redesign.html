@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway" rel="stylesheet">
+
+
+
+
+<style type="text/css">
+	
+	@font-face {
+  font-family: 'EnglishTowne';
+  src: url('/Users/jan-philippthiele/Library/Fonts/EnglishTowne.ttf')
+}
+
+*{
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+}  
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#nav-bar {
+	position: absolute;
+	width: 100%;
+	z-index: 5;
+}
+
+#logo {
+  
+  width: 300px;
+  margin: 7px;
+}
+
+#logo-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+li {
+  list-style: none;
+  color: white;
+}
+
+hr {
+  height: 1px;
+  border:none; 
+  color: white; 
+  background-color: white; 
+  width:90%; 
+  text-align:center; 
+  margin: 0 auto;
+}
+
+.categories {
+    color: white;
+    font-family: Montserrat;
+    margin-left: 25px;
+    margin-right: 25px;
+    font-size: 12px;
+
+  }
+
+  .nav-links {
+  	color: white;
+  }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#secondline {
+  color: white; 
+  background-color: white;
+  position: sticky;
+  top: 35px;
+}
+
+.breaking-news-img {
+	object-fit: fill;
+	max-width: 1400px;
+	min-width: 100%;
+	left:50%;
+	top:50%;
+	position: fixed;
+    transform:translate(-50%,-50%);
+	animation-name: opacity;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+	opacity: 1;
+}
+
+.breaking-news-container {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	justify-content: center;
+	align-items: center;
+}
+
+.article-content {
+	display: flex;
+	position: fixed;
+	justify-content: space-between;
+	width: 85%;
+	top: 150px;
+	left:50%;
+    transform:translate(-50%);
+    padding: 30px;
+}
+
+.breaking-news-headline {
+	overflow-y: hidden;
+}
+
+.breaking-news-text {
+	width: 30%;
+	max-width: 350PX;
+	height: 450px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	background-color: rgba(0, 0, 0, 0.7);
+	box-shadow: 1px 5px 20px #000000;
+	align-items: center;
+	animation-name: opacitytwo;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+	animation-delay: 2s;
+	opacity: 0;
+}
+@keyframes opacitytwo {
+	100% {
+		opacity: 1;
+	}
+}
+
+
+.breaking-news-paragraph {
+	margin-left: 20px;
+	margin-right: 15px;
+	overflow-y: scroll;
+	height: 84%;
+	color: white;
+	font-weight: lighter;
+	font-size: 14px;
+	padding-right: 15px;
+	margin-top: 10px;
+}
+
+
+
+h2 {
+	color: white;
+	font-size: 3vw;
+	width: 38vw;
+	font-weight: lighter;
+}
+
+.scroll-bar::-webkit-scrollbar-track
+{
+  margin-bottom: 300px;
+  border-radius: 100px;
+  background-color: #555;
+  opacity: 0.5
+}
+
+.scroll-bar::-webkit-scrollbar
+{
+  width: 4px;
+  background-color: #0000;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb
+{
+  border-radius: 100px;
+  background-color: white;
+}
+
+.scroll-bar::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-bottom: 300px; 
+}
+
+.scroll-bar::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 0px; 
+}
+
+.breaking-news-tags {
+	display: flex;
+	font-family:  Montserrat;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.article-tags { 
+	margin-right: 20px;
+	font-size: 12px;
+	color: white;
+	font-style: italic;
+	padding-right: 2px;
+}
+
+.article-specs {
+	display: flex;
+	color: white;
+	margin-top: 20px;
+	font-family: Montserrat;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+.article-spec {
+	margin-right: 30px;
+	color: white;
+}
+
+.breaking-news-articles {
+	display: flex;
+	flex-direction: column;
+	height: 68vh;
+	max-width: 37vw;
+	justify-content: space-between;
+}
+
+.breaking-news-articles-headlines {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.breaking-news-article-desc {
+	width: 40%;
+	color: white;
+	height: 9vw;
+	max-height: 16vh;
+	min-height: 100px;
+	position: relative;
+}
+
+h3 {
+	font-weight: lighter;
+	font-size: 1.5vw;
+	margin-top: 10px;
+	line-height: 115%;
+}
+
+.section {
+	font-family: Montserrat;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.source {
+	position: absolute;
+	bottom: 0px;
+}
+
+.spotlight {
+	display: flex;
+	justify-content: space-between;
+	min-width: min-content;
+	margin-left: 8px;
+	margin-top: 2px;
+}
+
+.spotlight-scroll {
+	flex: 1;
+	display: flex;
+	overflow-x: scroll;
+	position: absolute;
+	bottom: 0px;
+	background-color: white;
+	width: 55%;
+	height: 68px;
+	border-radius: 10px 0px 0px 0px;
+	right: 0px;
+
+}
+
+.scroll-bar2::-webkit-scrollbar
+{
+	display: none;
+}
+
+.spotlight-article {
+	display: flex;
+	align-items: center; 
+	width: 270px;
+	margin-right: 20px;
+	padding-left: 5px;
+}
+
+.spotlight-article-img-container {
+	width: 50px;
+	height: 50px;
+	border-radius: 2px;
+	overflow: hidden;
+	box-shadow: 0px 1px 5px #555555;
+}
+
+.spotlight-article-img {
+	position: relative;
+	height: 100%;
+	left: 50%;
+    transform:translate(-50%);
+}
+
+.spotlight-article-headline {
+	display: flex;
+	margin-left: 15px;
+	flex-direction: column;
+	height: 50px;
+}
+
+.spotlight-section {
+	font-family: Montserrat;
+	font-weight: bold;
+	font-size: 10px;
+	color: #555555;
+	margin-top: 2px;
+}
+
+h4 {
+	font-weight: lighter;
+	margin-top: 4px;
+	font-size: 14px;
+	max-width: 220px;
+	line-height: 105%;
+}
+
+
+
+.mouse {
+  max-width: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.scroll {
+  animation-name: scroll;
+  animation-duration: 1.5s;
+  animation-timing-function: cubic-bezier(0.650, -0.550, 0.250, 1.500);
+  animation-iteration-count: infinite;
+  transform-origin: 50% 20.5px;
+  will-change: transform;
+}
+
+@keyframes scroll {
+  0%, 20% {
+  transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes scroll {
+  10% {
+  opacity: 1;
+  }
+  100% {
+  transform: translateY(36px) scaleY(2);
+  opacity: 0.01;
+  }
+}
+
+.breaking-news-article-desc {
+	position: relative;
+	display: block;
+	line-height: 1;
+	transform: translateY(10rem);
+	animation: up 700ms linear forwards;
+	animation-timing-function: cubic-bezier(0.250, 0.225, 0.375, 0.990);
+	animation-delay: 1.1s;
+	z-index: 1;
+	
+	&::before,
+	&::after {
+		position: absolute;
+		content: '';
+		width: 0px;
+		height: 1px;
+		left: 0;
+		background-color: rgba(0,0,0,0.2);
+		z-index: -1;
+	}
+	
+	&::before {
+		top: 1.4rem;
+		animation: draw 500ms linear 1s forwards;
+	}
+	
+	&::after {
+		bottom: 0.4rem;
+		animation: draw 500ms linear 1s forwards;
+	}
+	
+}
+
+@keyframes up {
+	
+	100% {
+		transform: translateY(0);
+	}
+	
+}
+
+@keyframes draw {
+	
+	100% {
+		width: 100%;
+	}
+	
+}
+
+
+ h2, .article-specs, .breaking-news-tags {
+	position: relative;
+	line-height: 1.1;
+	transform: translateY(12rem);
+	animation: up 700ms linear forwards;
+	animation-timing-function: cubic-bezier(0.250, 0.225, 0.375, 0.990);
+	animation-delay: 0.5s;
+	z-index: 1;
+	overflow-y: hidden; 
+	
+	&::before,
+	&::after {
+		position: absolute;
+		content: '';
+		width: 0px;
+		height: 2px;
+		left: 0;
+		background-color: rgba(0,0,0,0.2);
+		z-index: -1;
+	}
+	
+	&::before {
+		top: 1.4rem;
+		animation: draw 500ms linear 1s forwards;
+	}
+	
+	&::after {
+		bottom: 0.5rem;
+		animation: draw 500ms linear 1s forwards;
+	}
+	
+}
+
+.gallery-button {
+	position: absolute;
+	top: 50%;
+	transform: translate(0,-50%);
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	z-index: 5;
+	opacity: 0.7;
+	border-style: none;
+	border-radius: 100%;
+}
+
+.right-button {
+	right: 2%;
+}
+
+.left-button {
+	left: 2%;
+}
+
+</style>
+
+<head>
+	<title></title>
+<meta name="viewport" content="width=device-width, intial-scale=1">
+<title>JP Times</title>
+
+
+</head>
+
+
+
+<div id="nav-bar">
+<div id="logo-container"><img id="logo" src="/Users/jan-philippthiele/FoundationsFolder/foundations/project/news_website/static/Logo white.png"></div>
+<hr>
+<nav>
+  <ul>
+    <li class="categories"><a href="/politik" class="nav-links">Politik</a></li>
+    <li class="categories"><a href="/wirtschaft" class="nav-links">Wirtschaft</a></li>
+    <li class="categories"><a href="/gesellschaft" class="nav-links">Gesellschaft</a></li>
+    <li class="categories"><a href="/technik" class="nav-links">Technik</a></li>
+    <li class="categories"><a href="/sport" class="nav-links">Sport</a></li>
+  </ul>
+</nav>
+<hr id="secondline">
+</div>
+<body>
+
+	<button class="gallery-button right-button" onclick="plusDivs(1)"></button>
+	<button class="gallery-button left-button" onclick="plusDivs(-1)"></button>
+
+	<div class="breaking-news-container gallery">
+		<img class="breaking-news-img" src="/Users/jan-philippthiele/FoundationsFolder/foundations/project/news_website/static/court-prather-792765-unsplash.jpg">
+		
+		
+		<div class="article-content">
+			<div class="breaking-news-articles">
+				<div class="breaking-news-headline">
+					<div class="breaking-news-tags">
+						<li class="article-tags">GOLF</li>
+						<li class="article-tags">TIGER WOODS</li>
+						<li class="article-tags">SPORT</li>
+					</div>
+					<h2>
+						Tiger Woods Wins Master Series With a Huge Comeback
+					</h2>
+					<div class="article-specs">
+						<a class="article-spec">nytimes.com</a>
+	            		<p class="article-spec">20.04.2019 18:05</p>
+	            	</div>
+				</div>
+				
+
+
+
+				<div class="breaking-news-articles-headlines">
+					<div class="breaking-news-article-desc">
+						<p class="section">POLITIC</p>
+						<h3>Politics Face a New Danger Called Trump</h3>
+						<p class="source">nytimes.com</p>
+					</div>
+					<div class="breaking-news-article-desc">
+						<p class="section">POLITIC</p>
+						<h3>Five Things to Look Out For When Chelsea Faces Frankfurt</h3>
+						<p class="source">nytimes.com</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="breaking-news-text">
+				<p class="breaking-news-paragraph scroll-bar">
+					<font style="font-family: EnglishTowne; font-size:30px;">A</font> s millions of people watched Tiger Woods cap a comeback for the ages with a Masters win, two men looked on and probably smiled with a little flicker of recognition, an acknowledgment of the kind of greatness that only they and few others know.<br><br>Michael Jordan was watching from afar, Michael Phelps from the front row of the gallery at Augusta National, and both were amazed by what they saw. For Jordan, it was a little more personal because he could relate to mastering a return to the top.<br><br>“I took two years off to play baseball but nothing like that,” Jordan told the Athletic’s David Aldridge. “I’m pretty sure he questioned himself, whether he could get it back, and he had to put a lot of work in. But he took it head-on. He had to change his game; he had to change his perspective a little bit. To me, it was the greatest comeback I’ve ever seen.”<br><br>Jordan’s was right up there, though. He scored 55 points against the New York Knicks in his fifth game back in 1995, and, although he and the Chicago Bulls lost in the playoffs that year, they went on to win three straight NBA titles. Jordan admitted that he doubted Woods would be able to get back to the top of the golf world.<br><br>“He didn’t think he’d get back physically. But he did it,” Jordan said. “No one expected him to be back the way he is now. He’s probably the only person who believed he could get back. To me, that’s a major accomplishment. To me, it’s unbelievable. Mentally, you always think you can. But you can’t answer to what your body has to deal with.”<br><br>Phelps, the most decorated Olympian of all time with 28 medals (23 gold), was a little more personally involved, seeing Woods win in person and becoming a meme for a photo in which he was looking over Woods’s shoulder.
+				</p>
+				<svg class="mouse" xmlns="..." viewBox="0 0 76 130" preserveAspectRatio="xMidYmid meet">
+	  				<g fill="none" fill-rule="evenodd">
+	  				<rect width="70" height="118" x="1.5" y="1.5" stroke="#FFF" stroke-width="3" rx="36"/>
+				    <circle class="scroll" cx="36.5" cy="31.5" r="4.5" fill="#FFF"/>
+				    </g>
+				</svg>
+			</div>
+		</div>
+
+	</div>
+	<div class="breaking-news-container gallery">
+		<img class="breaking-news-img" src="https://images.unsplash.com/photo-1546707012-c46675f12716?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2249&q=80">
+		
+		<div class="article-content">
+			<div class="breaking-news-articles">
+				<div class="breaking-news-headline">
+					<div class="breaking-news-tags">
+						<li class="article-tags">GOLF</li>
+						<li class="article-tags">TIGER WOODS</li>
+						<li class="article-tags">SPORT</li>
+					</div>
+					<h2>
+						Avicii Launches Another Recordbreaking Single
+					</h2>
+					<div class="article-specs">
+						<a class="article-spec">nytimes.com</a>
+	            		<p class="article-spec">20.04.2019 18:05</p>
+	            	</div>
+				</div>
+				
+
+
+
+				<div class="breaking-news-articles-headlines">
+					<div class="breaking-news-article-desc">
+						<p class="section">POLITIC</p>
+						<h3>Politics Face a New Danger Called Trump</h3>
+						<p class="source">nytimes.com</p>
+					</div>
+					<div class="breaking-news-article-desc">
+						<p class="section">POLITIC</p>
+						<h3>Five Things to Look Out For When Chelsea Faces Frankfurt</h3>
+						<p class="source">nytimes.com</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="breaking-news-text">
+				<p class="breaking-news-paragraph scroll-bar">
+					<font style="font-family: EnglishTowne; font-size:30px;">A</font> s millions of people watched Tiger Woods cap a comeback for the ages with a Masters win, two men looked on and probably smiled with a little flicker of recognition, an acknowledgment of the kind of greatness that only they and few others know.<br><br>Michael Jordan was watching from afar, Michael Phelps from the front row of the gallery at Augusta National, and both were amazed by what they saw. For Jordan, it was a little more personal because he could relate to mastering a return to the top.<br><br>“I took two years off to play baseball but nothing like that,” Jordan told the Athletic’s David Aldridge. “I’m pretty sure he questioned himself, whether he could get it back, and he had to put a lot of work in. But he took it head-on. He had to change his game; he had to change his perspective a little bit. To me, it was the greatest comeback I’ve ever seen.”<br><br>Jordan’s was right up there, though. He scored 55 points against the New York Knicks in his fifth game back in 1995, and, although he and the Chicago Bulls lost in the playoffs that year, they went on to win three straight NBA titles. Jordan admitted that he doubted Woods would be able to get back to the top of the golf world.<br><br>“He didn’t think he’d get back physically. But he did it,” Jordan said. “No one expected him to be back the way he is now. He’s probably the only person who believed he could get back. To me, that’s a major accomplishment. To me, it’s unbelievable. Mentally, you always think you can. But you can’t answer to what your body has to deal with.”<br><br>Phelps, the most decorated Olympian of all time with 28 medals (23 gold), was a little more personally involved, seeing Woods win in person and becoming a meme for a photo in which he was looking over Woods’s shoulder.
+				</p>
+				<svg class="mouse" xmlns="..." viewBox="0 0 76 130" preserveAspectRatio="xMidYmid meet">
+	  				<g fill="none" fill-rule="evenodd">
+	  				<rect width="70" height="118" x="1.5" y="1.5" stroke="#FFF" stroke-width="3" rx="36"/>
+				    <circle class="scroll" cx="36.5" cy="31.5" r="4.5" fill="#FFF"/>
+				    </g>
+				</svg>
+			</div>
+		</div>
+
+	</div>
+	<div class="spotlight-scroll scroll-bar2">
+		<div class="spotlight">
+			<div class="spotlight-article">
+				<div class="spotlight-article-img-container">
+					<img class="spotlight-article-img" src="https://img.zeit.de/politik/ausland/2019-04/mueller-bericht-demokratie-donald-trump-report/wide__820x461__desktop">
+				</div>
+				<div class="spotlight-article-headline">
+					<p class="spotlight-section">POLITIC</p>
+					<h4>Trump Visits other Country</h4>
+				</div>
+			</div>
+			<div class="spotlight-article">
+				<div class="spotlight-article-img-container">
+					<img class="spotlight-article-img" src="https://img.zeit.de/politik/ausland/2019-04/jean-claude-juncker-3/wide__820x461__desktop">
+				</div>
+				<div class="spotlight-article-headline">
+					<p class="spotlight-section">POLITIC</p>
+					<h4>Juncker kritisiert deutsche Klimapolitik als "ungenügend"</h4>
+				</div>
+			</div>
+			<div class="spotlight-article">
+				<div class="spotlight-article-img-container">
+					<img class="spotlight-article-img" src="https://img.zeit.de/gesellschaft/zeitgeschehen/2019-04/banff-national-park/wide__820x461__desktop">
+				</div>
+				<div class="spotlight-article-headline">
+					<p class="spotlight-section">POLITIC</p>
+					<h4>Drei Extremkletterer in Kanada vermisst</h4>
+				</div>
+			</div>
+			<div class="spotlight-article">
+				<div class="spotlight-article-img-container">
+					<img class="spotlight-article-img" src="https://img.zeit.de/politik/ausland/2019-04/mueller-bericht-demokratie-donald-trump-report/wide__820x461__desktop">
+				</div>
+				<div class="spotlight-article-headline">
+					<p class="spotlight-section">POLITIC</p>
+					<h4>Trump Visits other Country</h4>
+				</div>
+			</div>
+			<div class="spotlight-article">
+				<div class="spotlight-article-img-container">
+					<img class="spotlight-article-img" src="https://img.zeit.de/politik/ausland/2019-04/mueller-bericht-demokratie-donald-trump-report/wide__820x461__desktop">
+				</div>
+				<div class="spotlight-article-headline">
+					<p class="spotlight-section">POLITIC</p>
+					<h4>Trump Visits other Country</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("gallery");
+  if (n > x.length) {slideIndex = 1} 
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none"; 
+  }
+  x[slideIndex-1].style.display = "block"; 
+}
+</script>
+
+
+
+

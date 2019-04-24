@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<style type="text/css">
+	body {
+		display: flex;
+		flex-direction: column;
+		justify-content: content;
+		align-items: center;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
+
+	p {
+		text-align: left;
+		font-size: 1vw;
+		margin-top: 70px;
+	}
+
+	h1 {
+		margin-top: 50px;
+		margin-bottom: 50px;
+	}
+
+	img {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+
+
+
+
+
+
+
+
+</style>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+{% block content %}
+  {% for article in article %}
+	<h1>{{ article['HEADLINE'] }}</h1>
+	<div><img src="{{ article['IMG_LINK'] }}"></div>
+	<div><p>{{ article['CONTENT'] }}Hello</p></div>
+
+  {% endfor %}
+{% endblock %}
+</body>
+</html>

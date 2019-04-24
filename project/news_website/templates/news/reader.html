@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Playfair Display" rel="stylesheet">
+
+
+<style type="text/css">
+	
+	* {
+		padding: 0px;
+		margin: 0px;
+	}
+
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 800px;
+		width: 90%;
+		left: 50%;
+		transform: translate(-50%);
+		position: absolute;
+	}
+
+	h1{
+		font-family: Playfair Display; 
+		font-size: 36px;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 40px;
+	}
+
+	.paper {
+		width: 90%;
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: 0px 5px 25px rgba(0,0,0, 0.27);
+		margin-top: 110vh;
+		padding: 25px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 100px;
+		padding-bottom: 150px;
+		animation-name: appearing;
+		animation-duration: 600ms;
+		animation-delay: 300ms;
+		animation-timing-function: cubic-bezier(0.415, 0.340, 0.220, 0.965); 
+		animation-fill-mode: forwards;
+	} @keyframes appearing {
+		100% {
+			margin-top: 60px;
+		}
+	}
+
+.article-img {
+	width: 90%;
+	animation-name: shadow;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+	border-radius: 5px;
+}	.article-img:hover {
+	animation-name: deshadow;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+}
+
+.article-text {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	font-family: Playfair Display; 
+	line-height: 155%;
+}
+
+.article-specs {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	display: flex;
+
+}
+
+.article-spec {
+	font-family: Playfair Display; 
+	margin-right: 20px;
+	margin-bottom: 40px;
+}
+
+.top-button {
+	align-self: flex-start;
+}
+
+button {
+	border-style: none;
+	padding: 20px;
+	font-size: 16px;
+	background-color: #444444;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 7px;
+	font-family: Montserrat;
+	animation-name: deshadow;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+} button:hover {
+	animation-name: shadow;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease;
+} @keyframes deshadow {
+	100% {
+		box-shadow: 0px 5px 15px rgba(0,0,0, 0.4);
+		background-color: #222222;
+	}
+} @keyframes shadow {
+	0% {
+		box-shadow: 0px 5px 15px rgba(0,0,0, 0.4);
+		background-color: #222222;
+	}
+
+	100% {
+		box-shadow: 0px 0px 0px rgba(0,0,0, 0.27);
+		background-color: #444444;
+	}
+} 
+
+.breaker {
+	width: 80%;
+	height: 1px;
+	background-color: #444444;
+	margin-top: 50px;
+} 
+
+.bottom-button {
+	margin-top: 90px;
+}
+
+</style>
+
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="paper">
+		
+<a class="top-button" href="/"><button class="top-button">Back to News</button></a>
+		{% block content %}
+  {% for article in article %}
+		<h1>{{ article['HEADLINE'] }}</h1>
+		<div class="article-specs">
+    		{% if article['Source_ID'] == 2 %}
+			<p class="article-spec">nytimes.com</p>
+			<p class="article-spec">{{ article['DateandTime'] }}</p>
+				{% else %}
+			<p class="article-spec">zeit.de</p>
+			<p class="article-spec">{{ article['DateandTime'] }}</p>
+			{% endif %}
+	    </div>
+	    <img class="article-img" src="{{ article['IMG_LINK'] }}">
+
+	    <div class="breaker"></div>
+
+		<p class="article-text">{% for line in article['CONTENT'].splitlines() %}
+    					{{line}}<br>
+    				{% endfor %}</p>
+
+
+  {% endfor %}
+{% endblock %}
+
+
+
+<a href="/"><button class="bottom-button">Back to News</button></a>
+
+
+
+
+
+	</div>
+
+</body>
+</html>

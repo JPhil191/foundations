@@ -87,7 +87,7 @@ a {
   top: 35px;
 }
 
-button {
+#refresh-button {
   height: 40px;
   width: 40px;
   border-radius: 25px;
@@ -101,6 +101,16 @@ button {
   align-items: center;
   box-shadow: 1px 5px 20px #000000;
   z-index: 1;
+}
+
+#form-for-link {
+  display: none;
+}
+
+#read-button {
+  margin-left: 30px;
+  color: white;
+  background-color: red;
 }
 
 #refresh {
@@ -436,7 +446,7 @@ article {
 </nav>
 <hr id="secondline">
 
-<button href="http://127.0.0.1:5000/"><img id="refresh" src="static/Refresh.png"></button>
+<button id="refresh-button" href="http://127.0.0.1:5000/"><img id="refresh" src="static/Refresh.png"></button>
 
 
 {% block header %}
@@ -464,7 +474,7 @@ article {
     
         <article class="post">
           <img class="article-image" alt="{{ news['HEADLINE'] }}" src="{{ news['IMG_LINK'] }}"><a target="_blank" href="{{ news['LINK'] }}">
-        <div class="article-description">
+        <a href="{{ url_for('news.reader', article_id=news['ID']) }}"><div class="article-description">
         <h3 class="article-headline">{{ news['HEADLINE'] }}</h3>
         <p class="article-teaser">{{ news['TEASER'] }}</p>
         <div class="article-charateristics">
@@ -475,8 +485,11 @@ article {
           {% else %}
             <a class="article-source">zeit.de</a>
             <p class="article-date">{{ news['DateandTime'] }}</p>
-          {% endif %}  
-        </div>
+          {% endif %}
+          <!--<form id="form-for-link" name="article-link"  method="post">{{ news['LINK'] }}</form> 
+
+          <button id="read-button" name="article-link" type="submit">Read article -></button>-->
+        </div></a>
       </div>
       </a>
       </article>

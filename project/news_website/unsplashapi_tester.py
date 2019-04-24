@@ -32,6 +32,6 @@ def search_forunsplash_image():
 		decoded_response = decode_json(resp.content)
 
 		img_link = decoded_response['results'][0]['urls']['full']
-		print(img_link)
+		
 
 search_forunsplash_image()
