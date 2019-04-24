@@ -30,8 +30,8 @@ def get_article_img():
 
 def update_img_in_db(img_link, article_ID):
 
-	with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+	#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 		db_cursor = db_connection.cursor()
 
 		db_cursor.execute("""UPDATE Links SET IMG_LINK = (?) WHERE ID = (?);""", (img_link, article_ID))
@@ -66,8 +66,8 @@ def decode_json(tup):
 
 def get_article_data():
 
-	with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+	#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 		db_cursor = db_connection.cursor()
 
 		article_data =db_cursor.execute("""SELECT IMG_LINK, ID, TAGS, Source_ID FROM Links WHERE IMG_LINK = 'None';""").fetchall()

@@ -127,8 +127,8 @@ def process_zeit_article_links(link_list):
 			log_error("Error during requests to {0} : {1}".format(link, str(e)))
 
 		if len(full_article) > 1200:
-			with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+			#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+			with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 				db_cursor = db_connection.cursor()
 				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
 					write_to_database(link, headline, full_article, img_link, teaser, zeit_article_tags)
@@ -251,8 +251,8 @@ def make_nyt_ready_for_database(link_list):
 		tags = get_nyt_tags(html)
 
 		if len(full_article) > 1200:
-			with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-			#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+			#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+			with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 				db_cursor = db_connection.cursor()
 				if db_cursor.execute('SELECT IMG_LINK FROM Links WHERE LINK = ?', (link,)).fetchone() is None:
 					
@@ -289,8 +289,8 @@ def translate_tags(tags):
 	return (translated_tags)
 
 def write_to_database(link, headline, content, img_link, teaser, tags):
-	with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
-	#with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
+	#with sqlite3.connect('/Users/jan-philippthiele/FoundationsFolder/foundations/project/instance/news_articles.sqlite') as db_connection:
+	with sqlite3.connect('/home/janphilipp_thiele/foundations/project/instance/news_articles.sqlite') as db_connection:
 		db_cursor = db_connection.cursor()
 
 
